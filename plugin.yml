@@ -1,0 +1,7 @@
+name: Git Partial Clone
+description: Enables step-level Git partial clone configuration
+author: https://github.com/automattic
+requirements:
+  - 'git'
+configuration:
+  additionalProperties: false
