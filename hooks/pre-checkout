@@ -15,7 +15,4 @@ set -eu
 
 export BUILDKITE_GIT_CLONE_FLAGS="--filter=tree:0 --recursive"
 
-# The docs recommend this setting, but we can't call `git config` here, because
-# we're outside of a Git repo.
-#
-# git config submodule.alternateErrorStrategy info
+git config --global submodule.alternateErrorStrategy info
