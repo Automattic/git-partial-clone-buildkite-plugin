@@ -13,8 +13,9 @@ set -eu
 # > actually building your software! Treeless clones might be
 # > an excellent option for those environments.
 
-export BUILDKITE_GIT_CLONE_FLAGS="--filter=tree:0 --recurse-submodules --also-filter-submodules"
+export BUILDKITE_GIT_CLONE_FLAGS="--filter=tree:0"
 
-# See failure message in
-# https://buildkite.com/automattic/gutenberg-mobile/builds/8768#018e16eb-c55e-4d98-84dc-464ef03dafc4/190-210
-git config submodule.alternateErrorStrategy info
+# The docs recommend this setting, but we can't call `git config` here, because
+# we're outside of a Git repo.
+#
+# git config submodule.alternateErrorStrategy info
