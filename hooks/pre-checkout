@@ -13,7 +13,7 @@ set -eu
 # > actually building your software! Treeless clones might be
 # > an excellent option for those environments.
 
-export BUILDKITE_GIT_CLONE_FLAGS="--filter=tree:0"
+export BUILDKITE_GIT_CLONE_FLAGS="--filter=tree:0 --recursive"
 
 # The docs recommend this setting, but we can't call `git config` here, because
 # we're outside of a Git repo.
