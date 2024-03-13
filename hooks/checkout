@@ -3,7 +3,7 @@
 # Hooks are sourced, so we need to set flags via `set`, not shebang.
 set -eu
 
-echo '[git-partial-clone-plugin] Adding GitHub to known hosts...'
+echo '[git-partial-clone-plugin] :git: Adding GitHub to known hosts'
 ssh-keyscan -t rsa github.com >> "$HOME/.ssh/known_hosts"
 
 # See https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
@@ -16,6 +16,7 @@ ssh-keyscan -t rsa github.com >> "$HOME/.ssh/known_hosts"
 # > actually building your software! Treeless clones might be
 # > an excellent option for those environments.
 
+echo '[git-partial-clone-plugin] :git: Cloning repo and submodules'
 git clone --filter=tree:0 --recurse-submodules --also-filter-submodules "$BUILDKITE_REPO" "$BUILDKITE_BUILD_CHECKOUT_PATH"
 
 cd "$BUILDKITE_BUILD_CHECKOUT_PATH"
@@ -23,6 +24,7 @@ cd "$BUILDKITE_BUILD_CHECKOUT_PATH"
 git submodule foreach --recursive "git clean -ffxdq"
 git clean -ffxdq
 
+echo '[git-partial-clone-plugin] :git: Checking out commit'
 git checkout -f "$BUILDKITE_COMMIT"
 
 git submodule sync --recursive
