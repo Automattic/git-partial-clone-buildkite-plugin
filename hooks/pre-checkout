@@ -13,8 +13,6 @@ set -eu
 # > actually building your software! Treeless clones might be
 # > an excellent option for those environments.
 
-# This doesn't seem to work with submodules on Buildkite
-# export BUILDKITE_GIT_CLONE_FLAGS="--filter=tree:0 --recursive --reference-if-able"
-export BUILDKITE_GIT_CLONE_FLAGS="--filter=blob:none"
+export BUILDKITE_GIT_CLONE_FLAGS="--filter=tree:0 --recursive --reference-if-able"
 
 git config --global submodule.alternateErrorStrategy info
