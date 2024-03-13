@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Hooks are sourced, so we need to set flags via `set`, not shebang.
+set -eu
+
+# See https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+#
+# > Treeless clones are really only helpful for automated
+# > builds when you want to quickly clone, compile a project,
+# > then throw away the repository. In environments like
+# > GitHub Actions using public runners, you want to minimize
+# > your clone time so you can spend your machine time
+# > actually building your software! Treeless clones might be
+# > an excellent option for those environments.
+
+git clone --filter=tree:0 --recurse-submodules --also-filter-submodules "$BUILDKITE_REPO" "$BUILDKITE_BUILD_CHECKOUT_PATH"
+
+cd "$BUILDKITE_BUILD_CHECKOUT_PATH"
+
+git submodule foreach --recursive "git clean -ffxdq"
+git clean -ffxdq
+
+git checkout -f "$BUILDKITE_COMMIT"
+
+git submodule sync --recursive
+git submodule update --init --recursive
