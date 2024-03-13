@@ -3,6 +3,9 @@
 # Hooks are sourced, so we need to set flags via `set`, not shebang.
 set -eu
 
+echo '[git-partial-clone-plugin] Adding GitHub to known hosts...'
+ssh-keyscan -t rsa github.com >> "$HOME/.ssh/known_hosts"
+
 # See https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
 #
 # > Treeless clones are really only helpful for automated
